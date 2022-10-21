@@ -123,23 +123,23 @@ public class CampoTest {
 	@Test
 	void testeToStringFechado() {
 		
-		Assert.assertEquals("fechado",campo.toString());
+		Assert.assertEquals("?",campo.toString());
 	}
 	@Test
 	void testeToStringMinado() {
 		campo.setMinado(true);
 		
-		Assert.assertEquals("Explodiu mané",campo.toString());
+		Assert.assertEquals("*",campo.toString());
 	}
 	@Test
 	void testeToStringNaoMinado() {
 		campo.setAberto(true);
-		Assert.assertEquals("Aberto e zero minas na vizinhanca",campo.toString());
+		Assert.assertEquals(" ",campo.toString());
 	}
 	@Test
 	void testeToStringMarcado() {
 		campo.setMarcado(true);
-		Assert.assertEquals("marcado",campo.toString());
+		Assert.assertEquals("x",campo.toString());
 	}
 	@Test
 	void testeToStringNaoMinadoMasComVizinhancaPerigosa() {
@@ -153,4 +153,6 @@ public class CampoTest {
 		String nDeVizinhosPerigos = campo.toString();
 		assertEquals("2", nDeVizinhosPerigos);
 	}
+	
 }
+	

@@ -3,7 +3,7 @@ package br.com.reinan.cm.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.reinan.cm.execao.ExplosaoExeption;
+import br.com.reinan.cm.execao.ExplosaoException;
 
 public class Campo {
 	private final int linha;
@@ -50,15 +50,16 @@ public class Campo {
 		boolean seguro  = vizinhos.stream().allMatch(v -> !v.minado);
 		return seguro;
 	}
-	boolean abrir() {
+	public boolean abrir() {
 		
 		if(!aberto && !marcado) {
 			aberto = true;
 			if(minado) {
-				throw new ExplosaoExeption();
+				throw new ExplosaoException();
 			}
 			if(vizinhosSeguro()) {
 				vizinhos.forEach(v -> v.abrir());
+				return true;
 			}
 			return true;
 		}else {
@@ -83,16 +84,16 @@ public class Campo {
 		this.aberto = false;
 	}
 	public String toString() {
-		if(minado) {
-			return "Explodiu mané";
-		}else if(marcado) {
-			return "marcado";
+		if(minado && aberto) {
+			return "*";
+		}else if(marcado && minado) {
+			return "x";
 		}else if(aberto && minasNaVIzinhanca()> 0) {
 			return Long.toString(minasNaVIzinhanca());
 		}else if(aberto) {
-			return "Aberto e zero minas na vizinhanca";
+			return " ";
 		}else {
-			return "fechado";
+			return "?";
 		}
 		
 	}
