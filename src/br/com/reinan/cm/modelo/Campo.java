@@ -53,13 +53,12 @@ public class Campo {
 	public boolean abrir() {
 		
 		if(!aberto && !marcado) {
-			aberto = true;
+			this.aberto = true;
 			if(minado) {
 				throw new ExplosaoException();
 			}
 			if(vizinhosSeguro()) {
 				vizinhos.forEach(v -> v.abrir());
-				return true;
 			}
 			return true;
 		}else {
@@ -68,9 +67,10 @@ public class Campo {
 	}
 	boolean objetivoAlcancado() {
 		boolean desvendado = aberto && !minado;
-		boolean protegido = aberto && minado && marcado;
+		boolean protegido = minado && marcado ;
 		
-		return protegido || desvendado;
+		
+		return protegido || desvendado ;
 	}
 	long minasNaVIzinhanca() {
 		 long quantidadeVizinhosMinados =vizinhos.stream()
@@ -86,7 +86,7 @@ public class Campo {
 	public String toString() {
 		if(minado && aberto) {
 			return "*";
-		}else if(marcado && minado) {
+		}else if(marcado) {
 			return "x";
 		}else if(aberto && minasNaVIzinhanca()> 0) {
 			return Long.toString(minasNaVIzinhanca());

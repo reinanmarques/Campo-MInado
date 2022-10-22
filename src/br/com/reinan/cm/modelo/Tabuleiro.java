@@ -31,6 +31,7 @@ public class Tabuleiro {
 		    .ifPresent(c -> c.abrir());
 		  }catch (ExplosaoException e) {
             campos.forEach(c -> c.setAberto(true));
+            throw e;
         }
 		}
 		public void alternarMarcacao(int linha , int coluna) {
@@ -41,8 +42,8 @@ public class Tabuleiro {
 		}
 
 		private void gerarCampos() {
-			for( int i = 0; i < linhas; i++) {
-				for(int j = 0; j < colunas; j++) {
+			for( int i = 1; i <= linhas; i++) {
+				for(int j = 1; j <= colunas; j++) {
 					campos.add(new Campo(i,j)) ;
 				}
 			}
@@ -65,7 +66,7 @@ public class Tabuleiro {
 	            minasArmadas = campos.stream().filter(minado).count();
 	        } while(minasArmadas < minas);
 		}
-		boolean objetivoAlcancado() {
+		public boolean objetivoAlcancado() {
 			return campos.stream().allMatch(c -> c.objetivoAlcancado());
 		}
 		public void reiniciar() {
@@ -76,7 +77,20 @@ public class Tabuleiro {
 		    StringBuilder str = new StringBuilder();
 	        
 	        int index = 0;
+	        
+	        
+	        str.append("   ");
+	        for (int i = 1; i <= colunas; i++) {
+				str.append(" ");
+				str.append(i );
+				str.append(" ");
+			}
+	        str.append("\n");
+	        
 	        for (int l = 0; l < linhas; l++) {
+	        	
+	        	str.append(l +1 );
+	        	str.append("|");
 	            str.append(" ");
 	            for (int c = 0; c < colunas; c++) {
 	                str.append(" ");             
