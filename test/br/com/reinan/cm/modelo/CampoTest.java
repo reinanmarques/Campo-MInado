@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import br.com.reinan.cm.execao.ExplosaoExeption;
+import br.com.reinan.cm.execao.ExplosaoException;
 
 public class CampoTest {
 	Campo campo;
@@ -56,7 +56,7 @@ public class CampoTest {
 	void testeExplosao() {
 		campo.setMinado(true);
 		
-		assertThrows(ExplosaoExeption.class, () -> {
+		assertThrows(ExplosaoException.class, () -> {
 			campo.abrir();
 		});
 	}
@@ -128,6 +128,7 @@ public class CampoTest {
 	@Test
 	void testeToStringMinado() {
 		campo.setMinado(true);
+		campo.setAberto(true);
 		
 		Assert.assertEquals("*",campo.toString());
 	}
@@ -139,6 +140,7 @@ public class CampoTest {
 	@Test
 	void testeToStringMarcado() {
 		campo.setMarcado(true);
+		campo.setMinado(true);
 		Assert.assertEquals("x",campo.toString());
 	}
 	@Test
